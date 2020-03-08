@@ -3,3 +3,5 @@
 *.timeindex
 *.snapshot
 *.idea/*
+build*
+*build/*
