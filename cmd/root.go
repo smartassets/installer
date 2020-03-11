@@ -18,4 +18,9 @@ func Execute() {
 
 func init(){
 	rootCmd.AddCommand(installCmd)
+	rootCmd.AddCommand(listCmd)
+	rootCmd.AddCommand(monitorCmd)
+	rootCmd.AddCommand(restartCmd)
+	rootCmd.AddCommand(startCmd)
+	rootCmd.AddCommand(stopCmd)
 }

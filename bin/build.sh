@@ -18,7 +18,7 @@ function moveArtifactsToBuildFolder() {
     mv $ASSETS_NAME_WIN_64 $folder
     mv $ASSETS_NAME_LINUX_32 $folder
     mv $ASSETS_NAME_LINUX_64 $folder
-    mv $ASSETS_NAME_OSX $folder
+    mv "$ASSETS_NAME_OSX" "$folder"
 }
 
 BUILD_FOLDER=build

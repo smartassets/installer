@@ -9,11 +9,10 @@ import (
 	"os/exec"
 )
 
-var startCmd = &cobra.Command{
-	Use:     "start",
-	Short:   "Starts already installed backend in the current directory",
-	Long:    "Starts the installed backend. Upon command execution, the current directory must be the installed location of the project",
-	Example: "assets start",
+var stopCmd = &cobra.Command{
+	Use:     "stop",
+	Short:   "Stops already installed backend in the current directory",
+	Example: "assets stop",
 	Run: func(cmd *cobra.Command, args []string) {
 		err := util.CheckDocker()
 		if err != nil {
@@ -25,8 +24,9 @@ var startCmd = &cobra.Command{
 		if os.IsNotExist(err) {
 			ui.ReportErr(fmt.Sprintf("Location %s does not exists. Is the backend correctly installed?", installationDirectory))
 		}
-		ui.ReportInfoWithoutArgs("Starting server...")
-		dockerComposeCmd := exec.Command("docker-compose",  "-p", "assets", "up", "-d")
+
+		ui.ReportInfoWithoutArgs("Stopping server...")
+		dockerComposeCmd := exec.Command("docker-compose",  "down")
 		dockerComposeCmd.Stdout = os.Stdout
 		dockerComposeCmd.Stderr = os.Stderr
 		dockerComposeCmd.Stdin = os.Stdin
