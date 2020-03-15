@@ -6,7 +6,7 @@ This is an installer CLI for the https://github.com/smartassets/backend-server.
 
 Mac OS X 64 bit | Windows 32 bit | Windows 64 bit | Linux 32 bit | Linux 64 bit
 --- | --- | --- | --- | ---
-assets.osx | assets.win32 | assets.win64 | assets.linux32 | assets.linux64
+[assets.osx](https://github.com/smartassets/installer/releases/download/1.0.1/assets.osx) | [assets.win32](https://github.com/smartassets/installer/releases/download/1.0.1/assets.win32) | [assets.win64](https://github.com/smartassets/installer/releases/download/1.0.1/assets.win64) | [assets.linux32](https://github.com/smartassets/installer/releases/download/1.0.1/assets.linux32) | [assets.linux64](https://github.com/smartassets/installer/releases/download/1.0.1/assets.linux64)
 
 2. Create a folder and add the downloaded content there
 - For Mac/Unix:
