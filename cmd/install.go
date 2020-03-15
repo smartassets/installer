@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"os/exec"
+	//"os/exec"
 	"path/filepath"
 )
 
@@ -54,7 +54,16 @@ var installCmd = &cobra.Command{
 
 		// Download the latest release of the project
 		ui.ReportInfoWithoutArgs("Downloading latest backend release...")
-		resp, err := http.Get("https://github.com/smartassets/backend-server/releases/download/0.0.1/backend-server.zip")
+		//client := github.NewClient(nil)
+		//// TODO works only with non-draft releases...
+		//latestRelease, _, err := client.Repositories.GetLatestRelease(context.TODO(), "smartassets", "backend-server")
+		//if err != nil {
+		//	ui.ReportErr(fmt.Sprintf("Could not find download repository: %s", err.Error()))
+		//}
+		//
+		//ui.ReportInfo("Name of repository: %s", *latestRelease.Name)
+		//ui.ReportInfo("Download URL: %s", latestRelease.GetURL())
+		resp, err := http.Get("https://github.com/smartassets/backend-server/releases/download/0.0.2/backend-server.zip")
 		if err != nil {
 			ui.ReportErr(fmt.Sprintf("Could not download latest release: %s", err.Error()))
 		}
@@ -81,14 +90,9 @@ var installCmd = &cobra.Command{
 		os.Remove(downloadFileName)
 
 		if shouldStart {
-			cmd := exec.Command("docker-compose", "-f", filepath.Join(installationDirectory, "docker-compose.yml", "up", "-d"))
-			_, err := cmd.Output()
-			if err != nil {
-				ui.ReportErr(fmt.Sprintf("Could not startup server: %s", err))
-			}
+
 		} else {
-			ui.ReportInfo("Option --start not specified, the backend will not be started.\n"+
-				"Use the command 'assets start %s' in order to star the backend", installationDirectory)
+			ui.ReportInfo("Go to %s directory and use the command 'assets start' in order to star the backend", installationDirectory)
 		}
 
 	},
@@ -96,7 +100,7 @@ var installCmd = &cobra.Command{
 
 func init() {
 	currentDirectory := getCurrentDirectory()
-	installCmd.Flags().StringVar(&installationDirectory, "install-dir", currentDirectory, "installation directory (default: current working directory)")
+	installCmd.Flags().StringVarP(&installationDirectory, "install-dir", "d", currentDirectory, "installation directory (default: current working directory)")
 	installCmd.Flags().BoolVar(&shouldStart, "start", false, "specifies whether server should start after installation (default: false)")
 }
 

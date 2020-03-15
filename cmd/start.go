@@ -12,7 +12,7 @@ import (
 var startCmd = &cobra.Command{
 	Use:     "start",
 	Short:   "Starts already installed backend in the current directory",
-	Long:    "Starts the installed backend. Upon command execution, the current directory must be the installed location of the project",
+	Long:    "Starts the installed backend. Upon command execution, the current directory must have the installed location of the project",
 	Example: "assets start",
 	Run: func(cmd *cobra.Command, args []string) {
 		err := util.CheckDocker()

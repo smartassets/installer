@@ -26,7 +26,7 @@ var stopCmd = &cobra.Command{
 		}
 
 		ui.ReportInfoWithoutArgs("Stopping server...")
-		dockerComposeCmd := exec.Command("docker-compose",  "down")
+		dockerComposeCmd := exec.Command("docker-compose",  "-p", "assets", "down")
 		dockerComposeCmd.Stdout = os.Stdout
 		dockerComposeCmd.Stderr = os.Stderr
 		dockerComposeCmd.Stdin = os.Stdin

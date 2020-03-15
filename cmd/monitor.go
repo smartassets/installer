@@ -8,6 +8,8 @@ import (
 	"github.com/smartassets/installer/ui"
 	"github.com/smartassets/installer/util"
 	"github.com/spf13/cobra"
+	"io"
+	"os"
 )
 
 var monitorCmd = &cobra.Command{
@@ -27,15 +29,15 @@ var monitorCmd = &cobra.Command{
 		}
 
 		context := context.TODO()
-		_, err = cli.ContainerLogs(context, args[0], types.ContainerLogsOptions{Follow: true, ShowStdout: true, ShowStderr: true})
+		logsReader, err := cli.ContainerLogs(context, args[0], types.ContainerLogsOptions{Follow: true, ShowStdout: true, ShowStderr: true})
 		if err != nil {
 			ui.ReportErr(fmt.Sprintf("Could not monitor service %s: %s", args[0], err.Error()))
 		}
 
-		//buffer := make([]byte, 16)
-		//if _, err := io.CopyBuffer(os.Stdout, logsReader, buffer); err != nil {
-		//	logsReader.Close()
-		//	ui.ReportErr(fmt.Sprintf("Could not stream backend service logs: %s", err.Error()))
-		//}
+		buffer := make([]byte, 4)
+		if _, err := io.CopyBuffer(os.Stdout, logsReader, buffer); err != nil {
+			logsReader.Close()
+			ui.ReportErr(fmt.Sprintf("Could not stream backend service logs: %s", err.Error()))
+		}
 	},
 }
